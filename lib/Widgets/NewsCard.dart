@@ -9,7 +9,9 @@ class NewsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 4.0),
       child: ListTile(
+        contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
         title: Text(
           newsItem['title'],
           style: TextStyle(
@@ -24,7 +26,7 @@ class NewsCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  newsItem['descendants'] + ' Comments',
+                  newsItem['descendants'].toString() + ' Comments',
                   style: TextStyle(
                     fontSize: 12.0,
                   ),
