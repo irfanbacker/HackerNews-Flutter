@@ -7,6 +7,12 @@ class WebViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('webview'),
+        backgroundColor: Colors.white,
+      ),
+      body: Container(),
+    );
   }
 }
