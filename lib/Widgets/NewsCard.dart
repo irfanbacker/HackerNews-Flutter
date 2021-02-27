@@ -11,6 +11,7 @@ class NewsCard extends StatelessWidget {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 4.0),
       child: ListTile(
+        key: key,
         contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
         title: Text(
           newsItem['title'],

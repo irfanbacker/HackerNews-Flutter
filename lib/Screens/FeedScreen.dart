@@ -1,3 +1,4 @@
+import 'package:HackerNews/Backend%20API/HackerNews.dart';
 import 'package:HackerNews/Widgets/NewsCard.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,14 @@ class _FeedScreenState extends State<FeedScreen> {
     data = widget.initialData;
   }
 
+  Future<void> updateFeed() async {
+    var newData = await getTopStoriesAsync();
+    setState(() {
+      data = newData;
+    });
+    return;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,13 +36,17 @@ class _FeedScreenState extends State<FeedScreen> {
         backgroundColor: Colors.white,
         centerTitle: true,
       ),
-      body: ListView.builder(
-          itemCount: data.length,
-          itemBuilder: (BuildContext context, int index) {
-            return NewsCard(
-              newsItem: data[index],
-            );
-          }),
+      body: RefreshIndicator(
+        onRefresh: updateFeed,
+        child: ListView.builder(
+            itemCount: data.length,
+            itemBuilder: (BuildContext context, int index) {
+              return NewsCard(
+                key: Key(data[index]['id'].toString()),
+                newsItem: data[index],
+              );
+            }),
+      ),
     );
   }
 }
