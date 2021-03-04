@@ -23,7 +23,6 @@ Future<dynamic> getStoryByIDAsync(int id) async {
           '.json?print=pretty',
     );
     var json = jsonDecode(response.body);
-    print(json);
     return json;
   } catch (error) {
     print(error);
@@ -37,7 +36,6 @@ Future<List<dynamic>> getTopStoriesAsync() async {
   var maxLen = storyIds.length < 30 ? storyIds.length : 30;
   for (int id in storyIds.sublist(0, maxLen)) {
     var item = await getStoryByIDAsync(id);
-    print(item);
     if (item == null) {
     } else if (item['type'] == 'story') {
       stories.add(item);
