@@ -3,27 +3,27 @@ import 'package:HackerNews/Widgets/NewsCard.dart';
 import 'package:flutter/material.dart';
 
 class FeedScreen extends StatefulWidget {
-  FeedScreen({Key? key, this.initialData}) : super(key: key);
+  FeedScreen({Key? key, required this.initialData}) : super(key: key);
 
-  final List<dynamic>? initialData;
+  final List<Map<String, dynamic>> initialData;
 
   @override
   _FeedScreenState createState() => _FeedScreenState();
 }
 
 class _FeedScreenState extends State<FeedScreen> {
-  List<dynamic> data = [];
+  List<Map<String, dynamic>> data = [];
 
   @override
   void initState() {
     super.initState();
-    data = widget.initialData!;
+    data = widget.initialData;
   }
 
   Future<void> updateFeed() async {
-    var newData = await getTopStoriesAsync();
+    List<Map<String, dynamic>> newData = await getTopStoriesAsync();
     setState(() {
-      data = newData!;
+      data = newData;
     });
     return;
   }
