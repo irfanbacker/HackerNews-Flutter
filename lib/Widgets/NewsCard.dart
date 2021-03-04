@@ -1,5 +1,9 @@
 import 'package:HackerNews/Screens/WebViewScreen.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsCard extends StatelessWidget {
   NewsCard({Key? key, this.newsItem}) : super(key: key);
@@ -42,12 +46,19 @@ class NewsCard extends StatelessWidget {
             ),
           ],
         ),
-        onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => WebViewScreen(
-                      url: newsItem['url'],
-                    ))),
+        onTap: () {
+          if (kIsWeb)
+            launch(newsItem['url'] as String);
+          else if (Platform.isAndroid || Platform.isIOS)
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => WebViewScreen(
+                          url: newsItem['url'],
+                        )));
+          else
+            launch(newsItem['url'] as String);
+        },
       ),
       color: Colors.grey[350],
     );
