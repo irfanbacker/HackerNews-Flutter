@@ -2,7 +2,7 @@ import 'package:HackerNews/Screens/WebViewScreen.dart';
 import 'package:flutter/material.dart';
 
 class NewsCard extends StatelessWidget {
-  NewsCard({Key key, this.newsItem}) : super(key: key);
+  NewsCard({Key? key, this.newsItem}) : super(key: key);
 
   final newsItem;
 

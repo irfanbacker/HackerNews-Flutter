@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
-Future<List<dynamic>> getTopStoriesIDAsync() async {
+Future<List<dynamic>?> getTopStoriesIDAsync() async {
   try {
     var response = await http.get(
-      'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty',
+      Uri.parse(
+          'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty'),
     );
-    List<dynamic> json = jsonDecode(response.body);
+    List<dynamic>? json = jsonDecode(response.body);
     return json;
   } catch (error) {
     print(error);
@@ -18,9 +19,9 @@ Future<List<dynamic>> getTopStoriesIDAsync() async {
 Future<dynamic> getStoryByIDAsync(int id) async {
   try {
     var response = await http.get(
-      'https://hacker-news.firebaseio.com/v0/item/' +
+      Uri.parse('https://hacker-news.firebaseio.com/v0/item/' +
           id.toString() +
-          '.json?print=pretty',
+          '.json?print=pretty'),
     );
     var json = jsonDecode(response.body);
     return json;
@@ -30,8 +31,8 @@ Future<dynamic> getStoryByIDAsync(int id) async {
   }
 }
 
-Future<List<dynamic>> getTopStoriesAsync() async {
-  var storyIds = await getTopStoriesIDAsync();
+Future<List<dynamic>?> getTopStoriesAsync() async {
+  var storyIds = (await getTopStoriesIDAsync()) as List<dynamic>;
   var stories = [];
   var maxLen = storyIds.length < 30 ? storyIds.length : 30;
   for (int id in storyIds.sublist(0, maxLen)) {
